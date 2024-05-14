@@ -40,4 +40,8 @@ public class ToursService {
         reservaRepository.save(reserva);
     }
 
+    public List<Reserva> obtenerClientes() {
+        return reservaRepository.findAll();
+    }
+
 }

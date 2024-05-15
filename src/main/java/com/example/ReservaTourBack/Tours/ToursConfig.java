@@ -36,7 +36,22 @@ public class ToursConfig {
 
             );
 
-            repository.saveAll(List.of(mulataC,centroC));
+            Tours guatape = new Tours(
+                    "Excursión por Guatapé",
+                    "¿Quieres conocer el pueblo de la eterna primavera? \n" +
+                            "Puedes hacerlo en esta excursión a Guatapé con paseo en barco. Además, te llevaremos a ver la Piedra del Peñol.\n" +
+                            "\nNos acercaremos hasta la Piedra del Peñol, un monolito de 220 metros de altura.\n" +
+                            "¡Desde la cima tendremos Guatapé a nuestros pies!",
+                    "Medellin",
+                    25000,
+                    "10:30 AM",
+                    "Iglesia de San José del Parque del Poblado."
+
+            );
+
+
+
+            repository.saveAll(List.of(mulataC,centroC,guatape));
 
         };
     }

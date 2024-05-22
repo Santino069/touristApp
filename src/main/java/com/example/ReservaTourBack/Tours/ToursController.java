@@ -36,6 +36,19 @@ public class ToursController {
         return ResponseEntity.ok(ciudades);
     }
 
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<Tours> updateTour(@PathVariable Long id, @RequestBody Tours updatedTour) {
+        Tours tour = toursService.updateTour(id, updatedTour);
+        return ResponseEntity.ok(tour);
+    }
+    @GetMapping
+    public ResponseEntity<List<Tours>> getAllTours() {
+        List<Tours> tours = toursService.getAllTours();
+        return ResponseEntity.ok(tours);
+    }
+
+
+
     static class SearchCriteria {
         private String ciudad;
         private int precio;

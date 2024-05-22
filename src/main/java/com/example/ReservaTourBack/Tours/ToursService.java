@@ -7,6 +7,7 @@ import com.example.ReservaTourBack.Reservas.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -95,6 +96,28 @@ public class ToursService {
         } else {
             return false;
         }
+    }
+
+    public Tours updateTour(Long id, Tours updatedTour) {
+        return toursRepository.findById(id)
+                .map(tour -> {
+                    tour.setNombre(updatedTour.getNombre());
+                    tour.setDescripcion(updatedTour.getDescripcion());
+                    tour.setCiudad(updatedTour.getCiudad());
+                    tour.setPrecio(updatedTour.getPrecio());
+                    tour.setHora_recogida(updatedTour.getHora_recogida());
+                    tour.setLugar_recogida(updatedTour.getLugar_recogida());
+                    return toursRepository.save(tour);
+                })
+                .orElseThrow(() -> new IllegalArgumentException("El tour con ID " + id + " no existe."));
+    }
+
+    public List<Tours> getAllTours() {
+        return toursRepository.findAll();
+    }
+
+    public List<ReservaAceptada> findReservasByDateRange(String startDate, String endDate) {
+        return reservaAceptadaRepository.findAllByFechaTourBetween(startDate, endDate);
     }
 
 }

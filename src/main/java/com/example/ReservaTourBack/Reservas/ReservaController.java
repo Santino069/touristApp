@@ -2,10 +2,12 @@ package com.example.ReservaTourBack.Reservas;
 
 import com.example.ReservaTourBack.Tours.ToursService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -47,4 +49,28 @@ public class ReservaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // BUSCAR RESERVAS POR RANGO DE FECHAS
+    @PostMapping("/buscar")
+    public ResponseEntity<List<ReservaAceptada>> buscarReservasPorFechas(@RequestBody RangoFechasRequest request) {
+        List<ReservaAceptada> reservas = toursService.findReservasByDateRange(request.getStartDate(), request.getEndDate());
+        return ResponseEntity.ok(reservas);
+    }
+
+}
+
+class RangoFechasRequest {
+    private String startDate;
+    private String endDate;
+
+    // Getters y setters
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+
 }

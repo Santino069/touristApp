@@ -28,7 +28,7 @@ public class Tours {
     private String hora_recogida;
     private String lugar_recogida;
 
-    public Tours(Long id, String nombre, String descripcion, String ciudad, int precio, String hora_recogida, String lugar_recogida) {
+    public Tours(Long id, String nombre, String descripcion, String ciudad, long precio, String hora_recogida, String lugar_recogida) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -38,7 +38,7 @@ public class Tours {
         this.lugar_recogida = lugar_recogida;
     }
 
-    public Tours(String nombre, String descripcion, String ciudad, int precio, String hora_recogida, String lugar_recogida) {
+    public Tours(String nombre, String descripcion, String ciudad, long precio, String hora_recogida, String lugar_recogida) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ciudad = ciudad;
@@ -87,7 +87,7 @@ public class Tours {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(long precio) {
         this.precio = precio;
     }
 

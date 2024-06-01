@@ -26,12 +26,19 @@ public class ToursService {
         this.reservaRepository = reservaRepository;
     }
 
-    public List<Tours> searchTours(String ciudad, int precio) {
+    public List<Tours> searchTours(String ciudad, int precio, String hora_recogida) {
         return toursRepository.findAll().stream()
-                .filter(tour -> {
-                    // Filtrar por ciudad y presupuesto
-                    return tour.getCiudad().equalsIgnoreCase(ciudad) && tour.getPrecio() <= precio;
-                })
+                .filter(tour -> tour.getCiudad().equalsIgnoreCase(ciudad)
+                        && tour.getPrecio() <= precio
+                        && tour.getHora_recogida().equals(hora_recogida))
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getHorasByCiudad(String ciudad) {
+        return toursRepository.findAll().stream()
+                .filter(tour -> tour.getCiudad().equalsIgnoreCase(ciudad))
+                .map(Tours::getHora_recogida)
+                .distinct()
                 .collect(Collectors.toList());
     }
 
@@ -39,6 +46,15 @@ public class ToursService {
     public List<String> obtenerCiudades() {
         return toursRepository.findAll().stream()
                 .map(Tours::getCiudad)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    //GET HORA
+
+    public List<String> obtenerHoras() {
+        return toursRepository.findAll().stream()
+                .map(Tours::getHora_recogida)
                 .distinct()
                 .collect(Collectors.toList());
     }

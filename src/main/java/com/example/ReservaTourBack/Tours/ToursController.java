@@ -20,8 +20,18 @@ public class ToursController {
 
     @PostMapping("/search")
     public ResponseEntity<List<Tours>> searchTours(@RequestBody SearchCriteria criteria) {
-        List<Tours> tours = toursService.searchTours(criteria.getCiudad(), criteria.getPrecio());
+        List<Tours> tours = toursService.searchTours(criteria.getCiudad(), criteria.getPrecio(), criteria.getHora_recogida());
+        System.out.println("Tours encontrados: " + tours.size());
+        System.out.println(criteria.getCiudad());
+        System.out.println(criteria.getHora_recogida());
+        System.out.println(criteria.getPrecio());
         return ResponseEntity.ok(tours);
+    }
+
+    @GetMapping("/horas/{ciudad}")
+    public ResponseEntity<List<String>> getHorasByCiudad(@PathVariable String ciudad) {
+        List<String> horas = toursService.getHorasByCiudad(ciudad);
+        return ResponseEntity.ok(horas);
     }
 
     @PostMapping("/reservas")
@@ -34,6 +44,12 @@ public class ToursController {
     public ResponseEntity<List<String>> getCiudades() {
         List<String> ciudades = toursService.obtenerCiudades();
         return ResponseEntity.ok(ciudades);
+    }
+
+    @GetMapping("/horas")
+    public ResponseEntity<List<String>> getHoras_recogida() {
+        List<String> horas_recogida = toursService.obtenerHoras();
+        return ResponseEntity.ok(horas_recogida);
     }
 
     @PutMapping("/actualizar/{id}")
@@ -52,6 +68,7 @@ public class ToursController {
     static class SearchCriteria {
         private String ciudad;
         private int precio;
+        private String hora_recogida;
 
         // Getters y setters
         public String getCiudad() {
@@ -68,6 +85,14 @@ public class ToursController {
 
         public void setPrecio(int precio) {
             this.precio = precio;
+        }
+
+        public String getHora_recogida() {
+            return hora_recogida;
+        }
+
+        public void setHora_recogida(String hora_recogida) {
+            this.hora_recogida = hora_recogida;
         }
     }
 
